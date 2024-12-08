@@ -19,7 +19,7 @@ _setup_kwargs={
   'author_email':
     "pellegrinoprevete@gmail.com",
   'description':
-    "Convert Ethereum mnemonic keys into regular private keys."
+    "Convert Ethereum mnemonic keys into regular private keys.",
   'long_description':
     long_description,
   'long_description_content_type':
