@@ -150,7 +150,7 @@ def mnemonic_to_private_key(mnemonic, str_derivation_path=LEDGER_ETH_DERIVATION_
 
 def _mnemonic_to_private_key(
   _seed_path,
-  _output_file):
+  _output_path):
   with open(_seed_path, 'r') as f:
     mnemonic = ' '.join(
       f.read(
@@ -158,14 +158,14 @@ def _mnemonic_to_private_key(
           '\n')).rstrip().lstrip()
     private_key = mnemonic_to_private_key(
       mnemonic)
-  if ( _output_file == ""):
+  if ( _output_path == ""):
     print(
       "Your private key is: '{}'".format(
         str(
           binascii.hexlify(
             private_key),
           'utf-8')))   
-  elif ( _output_file != "" ):
+  elif ( _output_path != "" ):
     with open(_output_path, 'wb') as f:
       f.write(
         private_key)
