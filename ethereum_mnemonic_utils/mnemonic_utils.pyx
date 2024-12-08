@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-
+from argparse import ArgumentParser as _argument_parser
+from os import getcwd
+from os.path import join as _path_join
 import binascii
 import hashlib
 import hmac
@@ -147,16 +148,59 @@ def mnemonic_to_private_key(mnemonic, str_derivation_path=LEDGER_ETH_DERIVATION_
 
     return private_key
 
+def _mnemonic_to_private_key(
+  _seed_path,
+  _output_file):
+  with open(_seed_path, 'r') as f:
+    mnemonic = ' '.join(
+      f.read(
+        ).split(
+          '\n')).rstrip().lstrip()
+    private_key = mnemonic_to_private_key(
+      mnemonic)
+  if ( _output_file == ""):
+    print(
+      "Your private key is: '{}'".format(
+        str(
+          binascii.hexlify(
+            private_key),
+          'utf-8')))   
+  else if ( _output_file != "" ):
+    with open(_output_path, 'wb') as f:
+    f.write(
+      private_key)
 
-if __name__ == '__main__':
-    import sys
+def _output_path_get():
+  return _path_join(
+    getcwd(),
+    "private.key")
 
-    if len(sys.argv) < 2:
-        print("# Missing filename that includes your mnemonic key")
-        print("# Usage: {} <mnemonic-filename>".format(sys.argv[0]))
-
-    else:
-        with open(sys.argv[1], 'r') as f:
-            mnemonic = ' '.join(f.read().split('\n')).rstrip().lstrip()
-            private_key = mnemonic_to_private_key(mnemonic)
-            print("# Your private key is: {}".format(str(binascii.hexlify(private_key), 'utf-8')))
+def _main():
+  _parser = _argument_parser()
+  _arguments = [
+    [("seed_path", ),
+     {"type": str,
+      "help": "Path of the seed file to convert."}],
+    [("--output-path", ),
+     {'action': "store",
+      "type": str,
+      "default": _output_path_get(),
+      "help": 'path of resulting private key.'}],
+    [("--verbose", ),
+     {'dest': "verbose",
+      'action': "store_true",
+      "default": False,
+      "help": 'extended output'}]
+  ]
+  for _argument in _arguments:
+    _args, _kwargs = _argument
+    _parser.add_argument(
+      *_args,
+      **_kwargs)
+  _args = _parser.parse_args()
+  _mnemonic_to_private_key_args = (
+    _args.seed_path,
+    _args.output_path,
+  )
+  _mnemonic_to_private_key(
+    *_mnemonic_to_private_key_args)

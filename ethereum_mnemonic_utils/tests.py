@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-from mnemonic_utils import *
-
+from .mnemonic_utils import *
 
 def bip32_derivation_path_tests():
     assert([BIP32_PRIVDEV+44, 60, BIP32_PRIVDEV+0, 0] == parse_derivation_path("m/44'/60/0'/0"))
