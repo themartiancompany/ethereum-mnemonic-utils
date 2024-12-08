@@ -167,8 +167,8 @@ def _mnemonic_to_private_key(
           'utf-8')))   
   elif ( _output_file != "" ):
     with open(_output_path, 'wb') as f:
-    f.write(
-      private_key)
+      f.write(
+        private_key)
 
 def _output_path_get():
   return _path_join(
