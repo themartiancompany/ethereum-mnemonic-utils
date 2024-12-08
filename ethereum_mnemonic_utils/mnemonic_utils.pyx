@@ -165,7 +165,7 @@ def _mnemonic_to_private_key(
           binascii.hexlify(
             private_key),
           'utf-8')))   
-  else if ( _output_file != "" ):
+  elif ( _output_file != "" ):
     with open(_output_path, 'wb') as f:
     f.write(
       private_key)
